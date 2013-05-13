@@ -1,6 +1,6 @@
--module(json).
+-module(d_json).
 
--include("defaults.hrl").
+-include("d_util.hrl").
 
 -export([validate_boolean/1,
          validate_boolean_list/1,

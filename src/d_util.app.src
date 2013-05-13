@@ -1,12 +1,13 @@
-{application, util,
+{application, d_util,
  [
   {description, "General utility functions"},
-  {vsn, "0.1.0"},
+  {vsn, "0.2.0"},
   {registered, []},
   {applications, [
                  kernel, 
                  stdlib,
-                 bstr
+                 bstr,
+                 jsx
                  ]},
   {env, []}
  ]}.

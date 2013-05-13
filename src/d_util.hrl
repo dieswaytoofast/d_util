@@ -3,11 +3,24 @@
 %%% @author Mahesh Paolini-Subramanya <mahesh@dieswaytoofast.com>
 %%% @author Tom Heinan <me@tomheinan.com>
 %%% @copyright (C) 2012 Juan Jose Comellas, Mahesh Paolini-Subramanya, Tom Heinan
-%%% @doc Common header files and definitions.
+%%% @doc Common types, records, and defines
 %%% @end
 %%%-------------------------------------------------------------------
 
--include("types.hrl").
+-type error()           :: {error, Reason :: term()}.
+
+%% Tuple containing a date and time.
+-type hour()     :: 0..23.
+-type minute()   :: 0..59.
+-type second()   :: 0..59.
+-type datetime()                                :: {calendar:date(), {hour(), minute(), second() | float()}}.
+
+%% A floating point number representing the number of seconds elapsed since
+%% Jan 1, 1970, 00:00:00 (Unix epoch).
+-type epoch()                                   :: non_neg_integer() | float().
+-type audio_path()                              :: file:filename().
+
+
 %%  ERRORS
 -define(INVALID_FLOAT, <<"invalid_float">>).
 -define(INVALID_INTEGER, <<"invalid_integer">>).

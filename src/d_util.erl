@@ -3,10 +3,10 @@
 %%% @author Mahesh Paolini-Subramanya <mahesh@dieswaytoofast.com>
 %%% @author Tom Heinan <me@tomheinan.com>
 %%% @copyright (C) 2012 Juan Jose Comellas, Mahesh Paolini-Subramanya
-%%% @doc Module serving twitterl_util functions
+%%% @doc Module providing general utility functions
 %%% @end
 %%%-------------------------------------------------------------------
--module(util).
+-module(d_util).
 -author('Juan Jose Comellas <juanjo@comellas.org>').
 -author('Mahesh Paolini-Subramanya <mahesh@dieswaytoofast.com>').
 -author('Tom Heinan <me@tomheinan.com>').
@@ -16,7 +16,7 @@
 %% http://www.w3.org/TR/html5/states-of-the-type-attribute.html#valid-e-mail-address
 -define(EMAIL_ADDRESS_REGEXP, "^[a-zA-Z0-9.\\\!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$").
 
--include("defaults.hrl").
+-include("d_util.hrl").
 
 -export([get_env/0, get_env/1, get_env/2]).
 -export([start/0, stop/0]).
@@ -135,21 +135,26 @@ stop_app(App) ->
 -spec get_integer(binary() | atom() | list() | char()) -> integer() | error().
 get_integer(Value) when is_integer(Value) -> Value;
 get_integer(Value) ->
-    case bstr:is_numeric(bstr:bstr(Value)) of
-        true ->
-            get_integer_value(Value);
-        false ->
+    try
+        case bstr:is_numeric(bstr:bstr(Value)) of
+            true ->
+                get_integer_value(Value);
+            false ->
+                {error, ?INVALID_INTEGER}
+        end
+    catch
+        _:_ ->
             {error, ?INVALID_INTEGER}
     end.
 
--spec get_integer_value(term()) -> integer().
+-spec get_integer_value(term()) -> integer() | error().
 get_integer_value(Value) when is_binary(Value) ->
     get_integer_value(binary_to_list(Value));
 get_integer_value(Value) when is_atom(Value) ->
     get_integer_value(bstr:bstr(Value));
 get_integer_value(Value) when is_list(Value) ->
     try
-        list_to_integer(Value)
+        list_to_integer(lists:flatten(Value))
     catch
         _:_ ->
             {error, ?INVALID_INTEGER}

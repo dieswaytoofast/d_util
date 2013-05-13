@@ -4,7 +4,7 @@
 %%% @doc Module serving mp3 functions
 %%% @end
 %%%-------------------------------------------------------------------
--module(mp3).
+-module(d_mp3).
 -author('Mahesh Paolini-Subramanya <mahesh@dieswaytoofast.com>').
 
 -define(V1, 3).
@@ -15,7 +15,7 @@
 -define(L2, 2).
 -define(L3, 1).
 
--include("defaults.hrl").
+-include("d_util.hrl").
 
 %% Validations
 -export([validate/1]).

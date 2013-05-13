@@ -1,4 +1,4 @@
-APPLICATION := util
+APPLICATION := d_util
 
 ERL := erl
 EPATH := -pa ebin -pz deps/*/ebin
