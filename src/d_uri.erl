@@ -18,6 +18,7 @@
 %% API Function Definitions
 %% ------------------------------------------------------------------
 
+% NOTE!!! Any K or V that is binary is unchanged...
 
 % Thanks to https://github.com/tim/erlang-oauth.git
 -spec params_encode([tuple()]) -> string().
@@ -45,6 +46,8 @@ intersperse(_, [X]) ->
 intersperse(Sep, [X | Xs]) ->
   [X, Sep | intersperse(Sep, Xs)].
 
+uri_encode(Term) when is_binary(Term) ->
+    binary_to_list(Term);
 uri_encode(Term) when is_integer(Term) ->
   integer_to_list(Term);
 uri_encode(Term) when is_atom(Term) ->
