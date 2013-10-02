@@ -326,7 +326,7 @@ validate_email_address(Address) ->
 -spec validate_url(binary()) -> binary() | error().
 validate_url(Url) when is_binary(Url) ->
     L = binary_to_list(Url),
-    case ibrowse_lib:parse_url(L) of
+    case http_uri:parse(L) of
         {error, _} ->
             {error, {?INVALID_URL, [Url]}};
         _ ->
